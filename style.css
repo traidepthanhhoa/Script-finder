@@ -1,0 +1,168 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#0f1117;
+    color:#fff;
+}
+
+header{
+    background:#161b22;
+    padding:30px;
+    text-align:center;
+    position:sticky;
+    top:0;
+    z-index:999;
+    box-shadow:0 2px 10px rgba(0,0,0,.4);
+}
+
+header h1{
+    color:#4ea1ff;
+    font-size:35px;
+}
+
+header p{
+    color:#888;
+    margin-top:8px;
+}
+
+.searchBox{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+.searchBox input{
+    width:420px;
+    max-width:90%;
+    padding:12px;
+    border:none;
+    outline:none;
+    border-radius:10px;
+    background:#202938;
+    color:white;
+    font-size:16px;
+}
+
+.searchBox button{
+    padding:12px 22px;
+    border:none;
+    border-radius:10px;
+    background:#4ea1ff;
+    color:white;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.searchBox button:hover{
+    background:#3187e6;
+}
+
+main{
+    padding:25px;
+}
+
+#loading{
+    text-align:center;
+    font-size:20px;
+    margin:30px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#1b2230;
+    border-radius:15px;
+    padding:18px;
+    transition:.25s;
+    border:1px solid #2c3647;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    border-color:#4ea1ff;
+}
+
+.card h2{
+    color:#4ea1ff;
+    margin-bottom:10px;
+    font-size:22px;
+}
+
+.card p{
+    color:#c9c9c9;
+    margin:8px 0;
+    line-height:1.5;
+}
+
+.tags{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:12px;
+}
+
+.tag{
+    background:#2a3345;
+    padding:5px 10px;
+    border-radius:8px;
+    font-size:13px;
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+}
+
+.actions button{
+    flex:1;
+    border:none;
+    padding:10px;
+    border-radius:8px;
+    cursor:pointer;
+    color:white;
+    font-weight:bold;
+}
+
+.copy{
+    background:#16a34a;
+}
+
+.view{
+    background:#2563eb;
+}
+
+.copy:hover{
+    background:#12823c;
+}
+
+.view:hover{
+    background:#1d4ed8;
+}
+
+@media(max-width:700px){
+
+.searchBox{
+    flex-direction:column;
+    align-items:center;
+}
+
+.searchBox input{
+    width:95%;
+}
+
+.searchBox button{
+    width:95%;
+}
+
+}
