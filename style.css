@@ -151,6 +151,17 @@ body {
     letter-spacing: -0.5px;
 }
 
+.container h1::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    margin: 15px auto 0;
+    background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+    border-radius: 4px;
+    animation: glowLine 2s ease-in-out infinite;
+}
+
 /* ===== Avatar ===== */
 #avatar {
     width: 150px;
@@ -468,6 +479,42 @@ body {
     }
 }
 
+@keyframes glowLine {
+    0%,
+    100% {
+        width: 80px;
+        opacity: 0.6;
+    }
+    50% {
+        width: 120px;
+        opacity: 1;
+    }
+}
+
+/* ===== Shimmer Effect ===== */
+.card::after,
+.bigCard::after,
+.videoCard::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+    animation: shimmer 3s infinite;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
     .container {
@@ -508,55 +555,5 @@ body {
 
     #videoList {
         grid-template-columns: 1fr;
-    }
-}
-
-/* ===== Loading shimmer effect for cards ===== */
-.card, .bigCard, .videoCard {
-    position: relative;
-    overflow: hidden;
-}
-
-.card::after, .bigCard::after, .videoCard::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
-    animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-    0% {
-        left: -100%;
-    }
-    100% {
-        left: 100%;
-    }
-}
-
-/* ===== Glow effect for headings ===== */
-.container h1::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 4px;
-    margin: 15px auto 0;
-    background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
-    border-radius: 4px;
-    animation: glowLine 2s ease-in-out infinite;
-}
-
-@keyframes glowLine {
-    0%,
-    100% {
-        width: 80px;
-        opacity: 0.6;
-    }
-    50% {
-        width: 120px;
-        opacity: 1;
     }
 }
