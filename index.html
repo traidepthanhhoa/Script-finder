@@ -40,72 +40,68 @@ Thống kê
 YouTube
 </a>
 
-<!-- CHỌN NGÔN NGỮ TRONG MENU -->
-<div style="margin-top: 30px; padding: 0 15px;">
-    <label for="langSelect" style="color: #aaa; font-size: 14px; display: block; margin-bottom: 5px;">
-        <i class="fas fa-globe"></i> Ngôn ngữ
-    </label>
-    <select id="langSelect" style="
-        width: 100%;
-        padding: 8px 12px;
-        background: #2a2a2a;
-        color: #fff;
-        border: 1px solid #444;
-        border-radius: 6px;
-        font-family: 'Poppins', sans-serif;
-        font-size: 14px;
-        cursor: pointer;
-        outline: none;
-    ">
-        <option value="vi">🇻🇳 Tiếng Việt</option>
-        <option value="en">🇬🇧 English</option>
-        <option value="ko">🇰🇷 한국어</option>
-        <option value="ja">🇯🇵 日本語</option>
-        <option value="zh">🇨🇳 中文</option>
-    </select>
-</div>
-
 </div>
 
 <!-- NÚT MENU -->
+
 <div id="menuBtn">
+
 ☰
+
 </div>
 
 <!-- NỀN MỜ -->
+
 <div id="overlay"></div>
 
 <!-- NỘI DUNG -->
+
 <div class="container">
 
 <img id="avatar">
 
 <h1 id="channelName">
+
 Đang tải...
+
 </h1>
 
 <p class="title">
+
 Subscribers
+
 </p>
 
 <h2 id="subs">
+
 0
+
 </h2>
 
 <div class="cards">
 
 <div class="card">
+
 <h3 id="views">
+
 0
+
 </h3>
+
 <p>Lượt xem</p>
+
 </div>
 
 <div class="card">
+
 <h3 id="videos">
+
 0
+
 </h3>
+
 <p>Video</p>
+
 </div>
 
 </div>
@@ -113,166 +109,12 @@ Subscribers
 <a class="ytBtn"
 href="https://youtube.com/@kenhmatchat"
 target="_blank">
+
 Đăng ký kênh
+
 </a>
 
-<!-- NÚT CHỌN NGÔN NGỮ (PHIÊN BẢN ĐƠN GIẢN BÊN DƯỚI) -->
-<div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #333;">
-    <button id="langToggleBtn" style="
-        background: #1a1a1a;
-        color: #fff;
-        border: 1px solid #444;
-        border-radius: 8px;
-        padding: 10px 24px;
-        font-family: 'Poppins', sans-serif;
-        font-size: 14px;
-        cursor: pointer;
-        transition: all 0.3s;
-    " 
-    onmouseover="this.style.background='#2a2a2a'"
-    onmouseout="this.style.background='#1a1a1a'">
-        🌐 Chọn ngôn ngữ
-    </button>
-    
-    <div id="langPopup" style="
-        display: none;
-        margin-top: 10px;
-        background: #1a1a1a;
-        border: 1px solid #444;
-        border-radius: 8px;
-        padding: 10px;
-        max-width: 200px;
-        margin-left: auto;
-        margin-right: auto;
-    ">
-        <div style="display: flex; flex-direction: column; gap: 6px;">
-            <a href="#" onclick="changeLanguage('vi'); return false;" style="color: #fff; text-decoration: none; padding: 6px 12px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='transparent'">🇻🇳 Tiếng Việt</a>
-            <a href="#" onclick="changeLanguage('en'); return false;" style="color: #fff; text-decoration: none; padding: 6px 12px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='transparent'">🇬🇧 English</a>
-            <a href="#" onclick="changeLanguage('ko'); return false;" style="color: #fff; text-decoration: none; padding: 6px 12px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='transparent'">🇰🇷 한국어</a>
-            <a href="#" onclick="changeLanguage('ja'); return false;" style="color: #fff; text-decoration: none; padding: 6px 12px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='transparent'">🇯🇵 日本語</a>
-            <a href="#" onclick="changeLanguage('zh'); return false;" style="color: #fff; text-decoration: none; padding: 6px 12px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='transparent'">🇨🇳 中文</a>
-        </div>
-    </div>
 </div>
-
-</div>
-
-<script>
-// Xử lý toggle popup ngôn ngữ
-document.getElementById('langToggleBtn').addEventListener('click', function() {
-    var popup = document.getElementById('langPopup');
-    if (popup.style.display === 'none' || popup.style.display === '') {
-        popup.style.display = 'block';
-    } else {
-        popup.style.display = 'none';
-    }
-});
-
-// Đóng popup khi click ra ngoài
-document.addEventListener('click', function(event) {
-    var popup = document.getElementById('langPopup');
-    var btn = document.getElementById('langToggleBtn');
-    if (!popup.contains(event.target) && !btn.contains(event.target)) {
-        popup.style.display = 'none';
-    }
-});
-
-// Hàm đổi ngôn ngữ
-function changeLanguage(lang) {
-    var langNames = {
-        'vi': 'Tiếng Việt',
-        'en': 'English',
-        'ko': '한국어',
-        'ja': '日本語',
-        'zh': '中文'
-    };
-    
-    var langFlags = {
-        'vi': '🇻🇳',
-        'en': '🇬🇧',
-        'ko': '🇰🇷',
-        'ja': '🇯🇵',
-        'zh': '🇨🇳'
-    };
-    
-    // Cập nhật nút toggle
-    document.getElementById('langToggleBtn').innerHTML = langFlags[lang] + ' ' + langNames[lang];
-    
-    // Cập nhật select trong menu (nếu có)
-    var select = document.getElementById('langSelect');
-    if (select) {
-        select.value = lang;
-    }
-    
-    // Đóng popup
-    document.getElementById('langPopup').style.display = 'none';
-    
-    // Lưu ngôn ngữ vào localStorage
-    localStorage.setItem('preferred_language', lang);
-    
-    // Gọi hàm để cập nhật nội dung trang (bạn có thể mở rộng thêm)
-    updateContent(lang);
-    
-    console.log('Đã chuyển sang ngôn ngữ: ' + langNames[lang]);
-}
-
-// Hàm cập nhật nội dung (ví dụ)
-function updateContent(lang) {
-    // Đây là nơi bạn có thể thêm logic để thay đổi nội dung trang
-    // Ví dụ thay đổi tiêu đề trang
-    var titles = {
-        'vi': 'Kênh Mất Chất',
-        'en': 'Low Quality Channel',
-        'ko': '저품질 채널',
-        'ja': '低品質チャンネル',
-        'zh': '低质量频道'
-    };
-    
-    document.title = titles[lang] || 'Kênh Mất Chất';
-    
-    // Có thể thay đổi cả nội dung khác nếu muốn
-}
-
-// Khi trang tải, kiểm tra ngôn ngữ đã lưu
-document.addEventListener('DOMContentLoaded', function() {
-    var savedLang = localStorage.getItem('preferred_language');
-    if (savedLang) {
-        var langNames = {
-            'vi': 'Tiếng Việt',
-            'en': 'English',
-            'ko': '한국어',
-            'ja': '日本語',
-            'zh': '中文'
-        };
-        var langFlags = {
-            'vi': '🇻🇳',
-            'en': '🇬🇧',
-            'ko': '🇰🇷',
-            'ja': '🇯🇵',
-            'zh': '🇨🇳'
-        };
-        
-        // Cập nhật nút toggle
-        document.getElementById('langToggleBtn').innerHTML = langFlags[savedLang] + ' ' + langNames[savedLang];
-        
-        // Cập nhật select
-        var select = document.getElementById('langSelect');
-        if (select) {
-            select.value = savedLang;
-        }
-    }
-});
-
-// Xử lý sự kiện cho select trong menu
-document.addEventListener('DOMContentLoaded', function() {
-    var select = document.getElementById('langSelect');
-    if (select) {
-        select.addEventListener('change', function() {
-            changeLanguage(this.value);
-        });
-    }
-});
-</script>
 
 <script src="script.js"></script>
 
