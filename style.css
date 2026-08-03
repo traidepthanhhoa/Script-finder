@@ -1,692 +1,1216 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-}
-
-body {
-    background: #0a0a0a;
-    color: #fff;
-    overflow-x: hidden;
-    min-height: 100vh;
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-}
-
-/* ===== Animated Background ===== */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 50%, rgba(255, 0, 255, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 50% 100%, rgba(0, 255, 128, 0.03) 0%, transparent 40%);
-    z-index: -1;
-    animation: bgPulse 8s ease-in-out infinite alternate;
-}
-
-@keyframes bgPulse {
-    0% { opacity: 0.5; }
-    100% { opacity: 1; }
-}
-
-/* ===== Neon Grid Lines ===== */
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 0, 255, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
-    z-index: -1;
-    pointer-events: none;
-}
-
-/* ===== Sidebar ===== */
-#sidebar {
-    position: fixed;
-    left: -260px;
-    top: 0;
-    width: 260px;
-    height: 100%;
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    padding: 25px;
-    transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    z-index: 1000;
-    box-shadow: 
-        0 0 40px rgba(0, 255, 255, 0.1),
-        inset 0 0 60px rgba(255, 0, 255, 0.05);
-    border-right: 2px solid rgba(0, 255, 255, 0.3);
-}
-
-#sidebar.active {
-    left: 0;
-}
-
-#sidebar h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #00ffff;
-    font-weight: 700;
-    font-size: 24px;
-    letter-spacing: 3px;
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
-    text-shadow: 
-        0 0 10px rgba(0, 255, 255, 0.8),
-        0 0 20px rgba(0, 255, 255, 0.5),
-        0 0 40px rgba(0, 255, 255, 0.3),
-        0 0 80px rgba(0, 255, 255, 0.1);
-    animation: neonPulse 2s ease-in-out infinite;
-}
-
-#sidebar a {
-    display: block;
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.7);
-    padding: 14px 18px;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    transition: 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    font-weight: 500;
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
-    border: 1px solid transparent;
-}
-
-#sidebar a::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 0;
-    height: 100%;
-    background: linear-gradient(90deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
-    transition: 0.4s ease;
-}
-
-#sidebar a:hover::before {
-    width: 100%;
-}
-
-#sidebar a:hover {
-    color: #00ffff;
-    transform: translateX(8px) scale(1.02);
-    border-color: #00ffff;
-    box-shadow: 
-        0 0 20px rgba(0, 255, 255, 0.2),
-        inset 0 0 20px rgba(0, 255, 255, 0.1);
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-}
-
-#sidebar i {
-    width: 30px;
-    margin-right: 5px;
-    color: #ff00ff;
-    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
-}
-
-#sidebar a:hover i {
-    color: #00ffff;
-    text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
-}
-
-/* ===== Menu Button ===== */
-#menuBtn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    font-size: 28px;
-    cursor: pointer;
-    z-index: 1200;
-    background: rgba(10, 10, 10, 0.9);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 10px 18px;
-    border-radius: 8px;
-    user-select: none;
-    transition: 0.3s ease;
-    border: 2px solid #00ffff;
-    color: #00ffff;
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
-    box-shadow: 
-        0 0 20px rgba(0, 255, 255, 0.2),
-        inset 0 0 20px rgba(0, 255, 255, 0.05);
-}
-
-#menuBtn:hover {
-    transform: scale(1.1) rotate(90deg);
-    background: rgba(0, 255, 255, 0.1);
-    box-shadow: 
-        0 0 40px rgba(0, 255, 255, 0.4),
-        inset 0 0 40px rgba(0, 255, 255, 0.1);
-    border-color: #ff00ff;
-    color: #ff00ff;
-    text-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
-}
-
-/* ===== Overlay ===== */
-#overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    display: none;
-    z-index: 900;
-}
-
-#overlay.active {
-    display: block;
-    animation: fadeIn 0.3s ease;
-}
-
-/* ===== Container ===== */
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 90px 20px;
-    text-align: center;
-    animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.container h1 {
-    font-size: 42px;
-    margin-bottom: 15px;
-    color: #ff00ff;
-    font-weight: 800;
-    letter-spacing: 2px;
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
-    text-shadow: 
-        0 0 10px rgba(255, 0, 255, 0.8),
-        0 0 20px rgba(255, 0, 255, 0.5),
-        0 0 40px rgba(255, 0, 255, 0.3),
-        0 0 80px rgba(255, 0, 255, 0.1);
-    animation: neonPulse 3s ease-in-out infinite;
-}
-
-.container h1::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 3px;
-    margin: 15px auto 0;
-    background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
-    border-radius: 4px;
-    animation: neonLine 2s ease-in-out infinite;
-    box-shadow: 
-        0 0 20px rgba(0, 255, 255, 0.5),
-        0 0 40px rgba(255, 0, 255, 0.3);
-}
-
-/* ===== Avatar ===== */
-#avatar {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 3px solid #00ffff;
-    object-fit: cover;
-    margin-bottom: 20px;
-    box-shadow: 
-        0 0 30px rgba(0, 255, 255, 0.4),
-        0 0 60px rgba(0, 255, 255, 0.2),
-        0 0 100px rgba(255, 0, 255, 0.1),
-        inset 0 0 30px rgba(0, 255, 255, 0.1);
-    animation: float 3s ease-in-out infinite, neonGlow 2s ease-in-out infinite alternate;
-}
-
-@keyframes neonGlow {
-    0% { border-color: #00ffff; box-shadow: 0 0 30px rgba(0, 255, 255, 0.4), 0 0 60px rgba(0, 255, 255, 0.2); }
-    100% { border-color: #ff00ff; box-shadow: 0 0 30px rgba(255, 0, 255, 0.4), 0 0 60px rgba(255, 0, 255, 0.2); }
-}
-
-.title {
-    font-size: 20px;
-    opacity: 0.85;
-    color: #a0a0a0;
-    font-weight: 300;
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
-}
-
-#subs {
-    font-size: 60px;
-    color: #00ffff;
-    margin: 20px 0;
-    font-weight: 800;
-    letter-spacing: 2px;
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
-    text-shadow: 
-        0 0 10px rgba(0, 255, 255, 0.8),
-        0 0 20px rgba(0, 255, 255, 0.5),
-        0 0 40px rgba(0, 255, 255, 0.3),
-        0 0 80px rgba(0, 255, 255, 0.1);
-    animation: neonPulse 2.5s ease-in-out infinite;
-}
-
-/* ===== Cards ===== */
-.cards {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 25px;
-}
-
-.card {
-    background: rgba(10, 10, 10, 0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 25px 20px;
-    width: 220px;
-    border-radius: 12px;
-    transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    border: 1px solid rgba(0, 255, 255, 0.2);
-    position: relative;
-    overflow: hidden;
-}
-
-.card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(0, 255, 255, 0.05), transparent 70%);
-    opacity: 0;
-    transition: 0.6s ease;
-}
-
-.card:hover::before {
-    opacity: 1;
-}
-
-.card:hover {
-    transform: translateY(-12px) scale(1.02);
-    border-color: #00ffff;
-    box-shadow: 
-        0 0 30px rgba(0, 255, 255, 0.2),
-        0 0 60px rgba(255, 0, 255, 0.1),
-        inset 0 0 30px rgba(0, 255, 255, 0.05);
-}
-
-.card h3 {
-    font-size: 32px;
-    color: #ff00ff;
-    margin-bottom: 10px;
-    font-weight: 700;
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
-    text-shadow: 
-        0 0 10px rgba(255, 0, 255, 0.6),
-        0 0 20px rgba(255, 0, 255, 0.3);
-}
-
-.card p {
-    color: #a0a0a0;
-    font-weight: 400;
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.card:nth-child(1):hover { border-color: #00ffff; box-shadow: 0 0 40px rgba(0, 255, 255, 0.3); }
-.card:nth-child(2):hover { border-color: #ff00ff; box-shadow: 0 0 40px rgba(255, 0, 255, 0.3); }
-.card:nth-child(3):hover { border-color: #ffff00; box-shadow: 0 0 40px rgba(255, 255, 0, 0.3); }
-
-/* ===== YouTube Button ===== */
-.ytBtn {
-    display: inline-block;
-    margin-top: 35px;
-    padding: 16px 36px;
-    background: transparent;
-    color: #ff0040;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 700;
-    transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    position: relative;
-    overflow: hidden;
-    letter-spacing: 1px;
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
-    border: 2px solid #ff0040;
-    box-shadow: 
-        0 0 20px rgba(255, 0, 64, 0.2),
-        inset 0 0 20px rgba(255, 0, 64, 0.05);
-    text-shadow: 0 0 10px rgba(255, 0, 64, 0.3);
-}
-
-.ytBtn::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 0, 64, 0.1), transparent 60%);
-    opacity: 0;
-    transition: 0.5s ease;
-}
-
-.ytBtn:hover::after {
-    opacity: 1;
-}
-
-.ytBtn:hover {
-    transform: scale(1.06) translateY(-3px);
-    background: rgba(255, 0, 64, 0.1);
-    box-shadow: 
-        0 0 40px rgba(255, 0, 64, 0.4),
-        0 0 80px rgba(255, 0, 64, 0.2),
-        inset 0 0 40px rgba(255, 0, 64, 0.1);
-    border-color: #ff0040;
-    text-shadow: 0 0 20px rgba(255, 0, 64, 0.8);
-}
-
-/* ===== Stats Page ===== */
-.statsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 25px;
-    margin-top: 40px;
-}
-
-.bigCard {
-    background: rgba(10, 10, 10, 0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 35px 25px;
-    border-radius: 16px;
-    border: 1px solid rgba(0, 255, 255, 0.15);
-    transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.bigCard::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(255, 0, 255, 0.05));
-    opacity: 0;
-    transition: 0.5s ease;
-}
-
-.bigCard:hover::before {
-    opacity: 1;
-}
-
-.bigCard:hover {
-    transform: translateY(-8px);
-    border-color: #00ffff;
-    box-shadow: 
-        0 0 40px rgba(0, 255, 255, 0.15),
-        0 0 80px rgba(255, 0, 255, 0.1);
-}
-
-.bigCard h2 {
-    margin-bottom: 15px;
-    color: #00ffff;
-    font-weight: 600;
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
-    text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-}
-
-.bigCard h1 {
-    font-size: 48px;
-    color: #ff00ff;
-    font-weight: 800;
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
-    text-shadow: 
-        0 0 10px rgba(255, 0, 255, 0.6),
-        0 0 20px rgba(255, 0, 255, 0.3);
-}
-
-.bigCard p {
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
-    color: #a0a0a0;
-}
-
-.bigCard:nth-child(1):hover { border-color: #00ffff; }
-.bigCard:nth-child(1) h1 { color: #00ffff; text-shadow: 0 0 20px rgba(0, 255, 255, 0.6); }
-
-.bigCard:nth-child(2):hover { border-color: #ff00ff; }
-.bigCard:nth-child(2) h1 { color: #ff00ff; text-shadow: 0 0 20px rgba(255, 0, 255, 0.6); }
-
-.bigCard:nth-child(3):hover { border-color: #ffff00; }
-.bigCard:nth-child(3) h1 { color: #ffff00; text-shadow: 0 0 20px rgba(255, 255, 0, 0.6); }
-
-/* ===== Video Page ===== */
-#videoList {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    margin-top: 35px;
-}
-
-.videoCard {
-    background: rgba(10, 10, 10, 0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 12px;
-    overflow: hidden;
-    text-decoration: none;
-    color: white;
-    transition: 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-    border: 1px solid rgba(0, 255, 255, 0.15);
-    position: relative;
-}
-
-.videoCard::after {
-    content: '▶';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    font-size: 50px;
-    color: #00ffff;
-    background: rgba(0, 0, 0, 0.7);
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    border: 2px solid #00ffff;
-    backdrop-filter: blur(4px);
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
-    text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
-    box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
-}
-
-.videoCard:hover::after {
-    transform: translate(-50%, -50%) scale(1);
-}
-
-.videoCard:hover {
-    transform: translateY(-10px) scale(1.02);
-    border-color: #00ffff;
-    box-shadow: 
-        0 0 40px rgba(0, 255, 255, 0.2),
-        0 0 80px rgba(255, 0, 255, 0.1);
-}
-
-.videoCard img {
-    width: 100%;
-    display: block;
-    aspect-ratio: 16/9;
-    object-fit: cover;
-    transition: 0.5s ease;
-}
-
-.videoCard:hover img {
-    transform: scale(1.05);
-}
-
-.videoCard h3 {
-    padding: 18px 18px 8px;
-    font-size: 18px;
-    line-height: 1.4;
-    font-weight: 600;
-    color: #f1f5f9;
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.videoCard p {
-    padding: 0 18px 18px;
-    color: #94a3b8;
-    font-size: 14px;
-    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
-}
-
-/* ===== Scrollbar ===== */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: #0a0a0a;
-}
-
-::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #00ffff, #ff00ff);
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #ff00ff, #00ffff);
-    box-shadow: 0 0 40px rgba(255, 0, 255, 0.5);
-}
-
-/* ===== Animations ===== */
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-12px);
-    }
-}
-
-@keyframes neonPulse {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.7;
-    }
-}
-
-@keyframes neonLine {
-    0%, 100% {
-        width: 80px;
-        opacity: 0.6;
-    }
-    50% {
-        width: 150px;
-        opacity: 1;
-    }
-}
-
-/* ===== Shimmer Effect ===== */
-.card::after,
-.bigCard::after,
-.videoCard::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.02), transparent);
-    animation: shimmer 4s infinite;
-    pointer-events: none;
-}
-
-@keyframes shimmer {
-    0% {
-        left: -100%;
-    }
-    100% {
-        left: 100%;
-    }
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-    .container {
-        padding: 80px 15px;
-    }
-
-    #subs {
-        font-size: 45px;
-    }
-
-    .container h1 {
-        font-size: 30px;
-    }
-
-    #avatar {
-        width: 120px;
-        height: 120px;
-    }
-
-    .card {
-        width: 100%;
-        max-width: 300px;
-    }
-
-    .bigCard h1 {
-        font-size: 36px;
-    }
-
-    #menuBtn {
-        font-size: 24px;
-        padding: 8px 14px;
-    }
-
-    #sidebar {
-        width: 230px;
-        left: -230px;
-    }
-
-    #videoList {
-        grid-template-columns: 1fr;
-    }
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Neon Dashboard</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
         }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: rgba(10, 10, 10, 0.85);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --neon-cyan: #00ffff;
+            --neon-magenta: #ff00ff;
+            --neon-yellow: #ffff00;
+            --neon-red: #ff0040;
+            --border-color: rgba(0, 255, 255, 0.2);
+            --shadow-cyan: rgba(0, 255, 255, 0.4);
+            --shadow-magenta: rgba(255, 0, 255, 0.4);
+            --card-bg: rgba(10, 10, 10, 0.8);
+            --transition-speed: 0.4s;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f0f4ff;
+            --bg-secondary: rgba(255, 255, 255, 0.9);
+            --text-primary: #0a0a0a;
+            --text-secondary: #444444;
+            --border-color: rgba(0, 150, 255, 0.3);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --shadow-cyan: rgba(0, 150, 255, 0.3);
+            --shadow-magenta: rgba(200, 0, 255, 0.3);
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            transition: background 0.5s ease, color 0.5s ease;
+            font-family: 'Poppins', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* ===== Animated Background ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 0, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 50% 100%, rgba(0, 255, 128, 0.03) 0%, transparent 40%);
+            z-index: -1;
+            animation: bgPulse 8s ease-in-out infinite alternate;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        [data-theme="light"] body::before {
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0, 150, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(200, 0, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 100%, rgba(0, 200, 100, 0.05) 0%, transparent 40%);
+        }
+
+        @keyframes bgPulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* ===== Neon Grid Lines ===== */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        [data-theme="light"] body::after {
+            background-image:
+                linear-gradient(rgba(0, 150, 255, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(200, 0, 255, 0.06) 1px, transparent 1px);
+        }
+
+        /* ===== SIDEBAR ===== */
+        #sidebar {
+            position: fixed;
+            left: -280px;
+            top: 0;
+            width: 280px;
+            height: 100%;
+            background: var(--bg-secondary);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 25px 20px;
+            transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+            box-shadow:
+                0 0 40px rgba(0, 255, 255, 0.08),
+                inset 0 0 60px rgba(255, 0, 255, 0.03);
+            border-right: 2px solid var(--neon-cyan);
+            overflow-y: auto;
+        }
+
+        #sidebar.active {
+            left: 0;
+        }
+
+        #sidebar h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            color: var(--neon-cyan);
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: 3px;
+            text-shadow:
+                0 0 10px rgba(0, 255, 255, 0.8),
+                0 0 20px rgba(0, 255, 255, 0.5),
+                0 0 40px rgba(0, 255, 255, 0.3);
+            animation: neonPulse 2s ease-in-out infinite;
+        }
+
+        #sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 6px;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+            font-weight: 500;
+            border: 1px solid transparent;
+        }
+
+        #sidebar a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0, 255, 255, 0.12), rgba(255, 0, 255, 0.08));
+            transition: 0.4s ease;
+        }
+
+        #sidebar a:hover::before {
+            width: 100%;
+        }
+
+        #sidebar a:hover {
+            color: var(--neon-cyan);
+            transform: translateX(8px) scale(1.02);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.15), inset 0 0 20px rgba(0, 255, 255, 0.05);
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+        }
+
+        #sidebar a i {
+            width: 28px;
+            text-align: center;
+            color: var(--neon-magenta);
+            font-size: 18px;
+            transition: 0.3s ease;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.4);
+        }
+
+        #sidebar a:hover i {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+        }
+
+        /* ===== Theme Toggle in Sidebar ===== */
+        .sidebar-theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 1px solid var(--border-color);
+            background: rgba(0, 255, 255, 0.03);
+            transition: 0.3s ease;
+            cursor: pointer;
+        }
+
+        .sidebar-theme-toggle:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+
+        .sidebar-theme-toggle span {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .toggle-switch {
+            width: 48px;
+            height: 26px;
+            background: #333;
+            border-radius: 13px;
+            position: relative;
+            transition: 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        [data-theme="light"] .toggle-switch {
+            background: #ccc;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="light"] .toggle-switch::after {
+            left: 25px;
+        }
+
+        /* ===== MENU BUTTON ===== */
+        #menuBtn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 26px;
+            cursor: pointer;
+            z-index: 1200;
+            background: var(--bg-secondary);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 10px 16px;
+            border-radius: 10px;
+            user-select: none;
+            transition: all 0.35s ease;
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.15), inset 0 0 20px rgba(0, 255, 255, 0.03);
+        }
+
+        #menuBtn:hover {
+            transform: scale(1.1) rotate(90deg);
+            background: rgba(0, 255, 255, 0.08);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.3), inset 0 0 40px rgba(0, 255, 255, 0.05);
+            border-color: var(--neon-magenta);
+            color: var(--neon-magenta);
+        }
+
+        /* ===== OVERLAY ===== */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: none;
+            z-index: 900;
+        }
+
+        #overlay.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 90px 20px 40px;
+            text-align: center;
+            animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .container h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: var(--neon-magenta);
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-shadow:
+                0 0 10px rgba(255, 0, 255, 0.6),
+                0 0 20px rgba(255, 0, 255, 0.3),
+                0 0 40px rgba(255, 0, 255, 0.15);
+            animation: neonPulse 3s ease-in-out infinite;
+        }
+
+        .container h1::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            margin: 15px auto 0;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta), var(--neon-cyan));
+            border-radius: 4px;
+            animation: neonLine 2s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4), 0 0 40px rgba(255, 0, 255, 0.2);
+        }
+
+        /* ===== AVATAR ===== */
+        #avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--neon-cyan);
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow:
+                0 0 30px rgba(0, 255, 255, 0.3),
+                0 0 60px rgba(0, 255, 255, 0.15),
+                0 0 100px rgba(255, 0, 255, 0.08);
+            animation: float 3s ease-in-out infinite, neonGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes neonGlow {
+            0% { border-color: var(--neon-cyan); box-shadow: 0 0 30px rgba(0, 255, 255, 0.3), 0 0 60px rgba(0, 255, 255, 0.15); }
+            100% { border-color: var(--neon-magenta); box-shadow: 0 0 30px rgba(255, 0, 255, 0.3), 0 0 60px rgba(255, 0, 255, 0.15); }
+        }
+
+        .title {
+            font-size: 20px;
+            opacity: 0.85;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        #subs {
+            font-size: 60px;
+            color: var(--neon-cyan);
+            margin: 20px 0;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-shadow:
+                0 0 10px rgba(0, 255, 255, 0.6),
+                0 0 20px rgba(0, 255, 255, 0.3),
+                0 0 40px rgba(0, 255, 255, 0.15);
+            animation: neonPulse 2.5s ease-in-out infinite;
+        }
+
+        /* ===== CARDS ===== */
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 28px 20px;
+            width: 220px;
+            border-radius: 14px;
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 255, 255, 0.08), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-14px) scale(1.02);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.15), 0 0 80px rgba(255, 0, 255, 0.05), inset 0 0 30px rgba(0, 255, 255, 0.03);
+        }
+
+        .card h3 {
+            font-size: 34px;
+            color: var(--neon-magenta);
+            margin-bottom: 8px;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .card:nth-child(1):hover { border-color: var(--neon-cyan); box-shadow: 0 0 50px rgba(0, 255, 255, 0.2); }
+        .card:nth-child(2):hover { border-color: var(--neon-magenta); box-shadow: 0 0 50px rgba(255, 0, 255, 0.2); }
+        .card:nth-child(3):hover { border-color: var(--neon-yellow); box-shadow: 0 0 50px rgba(255, 255, 0, 0.2); }
+        .card:nth-child(3) h3 { color: var(--neon-yellow); text-shadow: 0 0 15px rgba(255, 255, 0, 0.3); }
+
+        /* ===== YOUTUBE BUTTON ===== */
+        .ytBtn {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 16px 40px;
+            background: transparent;
+            color: var(--neon-red);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 1px;
+            border: 2px solid var(--neon-red);
+            box-shadow: 0 0 20px rgba(255, 0, 64, 0.15), inset 0 0 20px rgba(255, 0, 64, 0.03);
+            text-shadow: 0 0 10px rgba(255, 0, 64, 0.2);
+        }
+
+        .ytBtn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 0, 64, 0.12), transparent 60%);
+            opacity: 0;
+            transition: 0.4s ease;
+        }
+
+        .ytBtn:hover::after {
+            opacity: 1;
+        }
+
+        .ytBtn:hover {
+            transform: scale(1.06) translateY(-4px);
+            background: rgba(255, 0, 64, 0.06);
+            box-shadow: 0 0 50px rgba(255, 0, 64, 0.3), 0 0 100px rgba(255, 0, 64, 0.1), inset 0 0 40px rgba(255, 0, 64, 0.05);
+            text-shadow: 0 0 25px rgba(255, 0, 64, 0.6);
+        }
+
+        /* ===== STATS PAGE ===== */
+        .statsGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .bigCard {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 35px 25px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bigCard::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.04), rgba(255, 0, 255, 0.04));
+            opacity: 0;
+            transition: 0.5s ease;
+        }
+
+        .bigCard:hover::before {
+            opacity: 1;
+        }
+
+        .bigCard:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.1), 0 0 100px rgba(255, 0, 255, 0.05);
+        }
+
+        .bigCard h2 {
+            margin-bottom: 12px;
+            color: var(--neon-cyan);
+            font-weight: 600;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .bigCard h1 {
+            font-size: 48px;
+            color: var(--neon-magenta);
+            font-weight: 800;
+            text-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+        }
+
+        .bigCard p {
+            color: var(--text-secondary);
+        }
+
+        .bigCard:nth-child(1):hover { border-color: var(--neon-cyan); }
+        .bigCard:nth-child(1) h1 { color: var(--neon-cyan); text-shadow: 0 0 20px rgba(0, 255, 255, 0.4); }
+
+        .bigCard:nth-child(2):hover { border-color: var(--neon-magenta); }
+        .bigCard:nth-child(2) h1 { color: var(--neon-magenta); text-shadow: 0 0 20px rgba(255, 0, 255, 0.4); }
+
+        .bigCard:nth-child(3):hover { border-color: var(--neon-yellow); }
+        .bigCard:nth-child(3) h1 { color: var(--neon-yellow); text-shadow: 0 0 20px rgba(255, 255, 0, 0.4); }
+
+        /* ===== VIDEO PAGE ===== */
+        #videoList {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 35px;
+        }
+
+        .videoCard {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 14px;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .videoCard .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 40px;
+            color: var(--neon-cyan);
+            background: rgba(0, 0, 0, 0.7);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            border: 2px solid var(--neon-cyan);
+            backdrop-filter: blur(4px);
+            text-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.2);
+            z-index: 2;
+        }
+
+        .videoCard:hover .play-btn {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .videoCard:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.12), 0 0 100px rgba(255, 0, 255, 0.06);
+        }
+
+        .videoCard .thumb-wrapper {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+        }
+
+        .videoCard .thumb-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .videoCard:hover .thumb-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .videoCard h3 {
+            padding: 18px 20px 6px;
+            font-size: 18px;
+            line-height: 1.4;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .videoCard p {
+            padding: 0 20px 18px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* ===== BACK TO TOP ===== */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            backdrop-filter: blur(12px);
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 800;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #backToTop.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #backToTop:hover {
+            transform: translateY(-6px) scale(1.08);
+            background: rgba(0, 255, 255, 0.08);
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.3);
+            border-color: var(--neon-magenta);
+            color: var(--neon-magenta);
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        #progressBar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            z-index: 9999;
+            width: 0%;
+            transition: width 0.1s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 40px rgba(255, 0, 255, 0.3);
+        }
+
+        /* ===== SKELETON LOADING ===== */
+        .skeleton {
+            background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-primary) 50%, var(--bg-secondary) 75%);
+            background-size: 200% 100%;
+            animation: skeletonLoading 1.5s infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes skeletonLoading {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .skeleton-text {
+            height: 16px;
+            margin: 8px 0;
+            border-radius: 4px;
+            background: var(--bg-secondary);
+            animation: skeletonLoading 1.5s infinite;
+        }
+
+        .skeleton-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            animation: skeletonLoading 1.5s infinite;
+        }
+
+        .skeleton-card {
+            height: 120px;
+            border-radius: 14px;
+            animation: skeletonLoading 1.5s infinite;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--neon-cyan), var(--neon-magenta));
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--neon-magenta), var(--neon-cyan));
+            box-shadow: 0 0 40px rgba(255, 0, 255, 0.3);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes neonPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes neonLine {
+            0%, 100% { width: 80px; opacity: 0.6; }
+            50% { width: 150px; opacity: 1; }
+        }
+
+        /* ===== SHIMMER EFFECT ===== */
+        .card::after,
+        .bigCard::after,
+        .videoCard::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.02), transparent);
+            animation: shimmer 5s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 80px 15px 30px;
+            }
+
+            #subs {
+                font-size: 40px;
+            }
+
+            .container h1 {
+                font-size: 28px;
+            }
+
+            #avatar {
+                width: 120px;
+                height: 120px;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .bigCard h1 {
+                font-size: 34px;
+            }
+
+            #menuBtn {
+                font-size: 22px;
+                padding: 8px 14px;
+            }
+
+            #sidebar {
+                width: 280px;
+                left: -280px;
+            }
+
+            #videoList {
+                grid-template-columns: 1fr;
+            }
+
+            #backToTop {
+                width: 46px;
+                height: 46px;
+                font-size: 20px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #subs {
+                font-size: 32px;
+            }
+            .container h1 {
+                font-size: 22px;
+            }
+            .bigCard h1 {
+                font-size: 28px;
+            }
+            .card h3 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== PROGRESS BAR ===== -->
+    <div id="progressBar"></div>
+
+    <!-- ===== BACK TO TOP ===== -->
+    <button id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ===== OVERLAY ===== -->
+    <div id="overlay"></div>
+
+    <!-- ===== MENU BUTTON ===== -->
+    <div id="menuBtn" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- ===== SIDEBAR ===== -->
+    <nav id="sidebar" aria-label="Main navigation">
+        <h2>✦ NEON</h2>
+
+        <a href="index.html" data-page="home"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="stats.html" data-page="stats"><i class="fas fa-chart-bar"></i> Thống kê</a>
+        <a href="videos.html" data-page="videos"><i class="fas fa-video"></i> Video</a>
+        <a href="about.html" data-page="about"><i class="fas fa-user"></i> Giới thiệu</a>
+
+        <!-- Theme toggle in sidebar -->
+        <div class="sidebar-theme-toggle" id="themeToggle" role="button" tabindex="0" aria-label="Toggle theme">
+            <span><i class="fas fa-moon"></i> <span id="themeLabel">Dark</span></span>
+            <div class="toggle-switch"></div>
+        </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="container" id="mainContent">
+
+        <!-- ===== SKELETON LOADING ===== -->
+        <div id="skeletonLoader">
+            <div class="skeleton-avatar"></div>
+            <div class="skeleton-text" style="width: 60%; margin: 0 auto 10px;"></div>
+            <div class="skeleton-text" style="width: 40%; margin: 0 auto 20px;"></div>
+            <div class="skeleton-text" style="width: 30%; margin: 0 auto 30px; height: 40px;"></div>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <div class="skeleton-card" style="width: 220px; height: 140px;"></div>
+                <div class="skeleton-card" style="width: 220px; height: 140px;"></div>
+                <div class="skeleton-card" style="width: 220px; height: 140px;"></div>
+            </div>
+        </div>
+
+        <!-- ===== ACTUAL CONTENT ===== -->
+        <div id="actualContent" style="display: none;">
+
+            <img
+            id="avatar"
+            src="https://i.pravatar.cc/300"
+            alt="Avatar"
+            data-aos="fade-down"
+            data-aos-duration="800"
+            />
+
+            <h1 data-aos="fade-up" data-aos-delay="100">Nguyễn Văn A</h1>
+            <p class="title" data-aos="fade-up" data-aos-delay="150">✨ Creator & Developer ✨</p>
+
+            <div id="subs" data-aos="fade-up" data-aos-delay="200">1.2M</div>
+            <p data-aos="fade-up" data-aos-delay="250" style="color: var(--text-secondary);">Người theo dõi</p>
+
+            <!-- Cards -->
+            <div class="cards" data-aos="fade-up" data-aos-delay="300">
+                <div class="card" data-aos="flip-up" data-aos-delay="350">
+                    <h3>500+</h3>
+                    <p>Video</p>
+                </div>
+                <div class="card" data-aos="flip-up" data-aos-delay="400">
+                    <h3>10M</h3>
+                    <p>Lượt xem</p>
+                </div>
+                <div class="card" data-aos="flip-up" data-aos-delay="450">
+                    <h3>5K</h3>
+                    <p>Ngày hoạt động</p>
+                </div>
+            </div>
+
+            <!-- YouTube Button -->
+            <a
+            href="https://youtube.com"
+            target="_blank"
+            class="ytBtn"
+            data-aos="zoom-in"
+            data-aos-delay="500"
+            >
+            <i class="fab fa-youtube"></i> Đăng ký YouTube
+        </a>
+    </div>
+</div>
+
+<!-- ===== SCRIPTS ===== -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js">
+</script>
+<script>
+    // ============================================
+    // 1. AOS INIT
+    // ============================================
+    AOS.init({
+        once: false,
+        mirror: true,
+        duration: 700,
+        easing: 'ease-out-cubic',
+        offset: 50,
+    });
+
+    // ============================================
+    // 2. SKELETON LOADING
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+        const skeleton = document.getElementById('skeletonLoader');
+        const content = document.getElementById('actualContent');
+
+        // Simulate loading
+        setTimeout(() => {
+            skeleton.style.display = 'none';
+            content.style.display = 'block';
+            // Re-trigger AOS for elements that appeared
+            AOS.refresh();
+        }, 1200);
+    });
+
+    // ============================================
+    // 3. SIDEBAR TOGGLE
+    // ============================================
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    function toggleSidebar() {
+        const isActive = sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = isActive ? 'hidden' : '';
+        // Update menu icon
+        const icon = menuBtn.querySelector('i');
+        icon.className = isActive ? 'fas fa-times' : 'fas fa-bars';
+    }
+
+    menuBtn.addEventListener('click', toggleSidebar);
+    overlay.addEventListener('click', toggleSidebar);
+
+    // Close sidebar with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+            toggleSidebar();
+        }
+    });
+
+    // Close sidebar when a link is clicked (mobile)
+    sidebar.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                toggleSidebar();
+            }
+        });
+    });
+
+    // ============================================
+    // 4. THEME TOGGLE (Dark/Light)
+    // ============================================
+    const themeToggle = document.getElementById('themeToggle');
+    const themeLabel = document.getElementById('themeLabel');
+
+    function toggleTheme() {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        themeLabel.textContent = newTheme === 'light' ? 'Sáng' : 'Tối';
+
+        // Update icon
+        const icon = themeToggle.querySelector('i');
+        icon.className = newTheme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeLabel.textContent = savedTheme === 'light' ? 'Sáng' : 'Tối';
+    const themeIcon = themeToggle.querySelector('i');
+    themeIcon.className = savedTheme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+
+    themeToggle.addEventListener('click', toggleTheme);
+
+    // ============================================
+    // 5. PROGRESS BAR
+    // ============================================
+    const progressBar = document.getElementById('progressBar');
+
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = progress + '%';
+    });
+
+    // ============================================
+    // 6. BACK TO TOP
+    // ============================================
+    const backToTop = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ============================================
+    // 7. MOUSE TRACKING (for hover glow effects)
+    // ============================================
+    document.querySelectorAll('.card, .ytBtn, .bigCard, .videoCard').forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            el.style.setProperty('--mouse-x', x + '%');
+            el.style.setProperty('--mouse-y', y + '%');
+        });
+    });
+
+    // ============================================
+    // 8. PAGE NAVIGATION (SPA-like)
+    // ============================================
+    const pages = {
+        home: `
+                    <img id="avatar" src="https://i.pravatar.cc/300" alt="Avatar" data-aos="fade-down" data-aos-duration="800"/>
+                    <h1 data-aos="fade-up" data-aos-delay="100">Nguyễn Văn A</h1>
+                    <p class="title" data-aos="fade-up" data-aos-delay="150">✨ Creator & Developer ✨</p>
+                    <div id="subs" data-aos="fade-up" data-aos-delay="200">1.2M</div>
+                    <p data-aos="fade-up" data-aos-delay="250" style="color: var(--text-secondary);">Người theo dõi</p>
+                    <div class="cards" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card" data-aos="flip-up" data-aos-delay="350"><h3>500+</h3><p>Video</p></div>
+                        <div class="card" data-aos="flip-up" data-aos-delay="400"><h3>10M</h3><p>Lượt xem</p></div>
+                        <div class="card" data-aos="flip-up" data-aos-delay="450"><h3>5K</h3><p>Ngày hoạt động</p></div>
+                    </div>
+                    <a href="https://youtube.com" target="_blank" class="ytBtn" data-aos="zoom-in" data-aos-delay="500"><i class="fab fa-youtube"></i> Đăng ký YouTube</a>
+                `,
+        stats: `
+                    <h1 data-aos="fade-up">📊 Thống kê kênh</h1>
+                    <div class="statsGrid">
+                        <div class="bigCard" data-aos="fade-up" data-aos-delay="100"><h2>Người theo dõi</h2><h1>1.2M</h1><p>↑ 12% tháng này</p></div>
+                        <div class="bigCard" data-aos="fade-up" data-aos-delay="200"><h2>Tổng lượt xem</h2><h1>10.8M</h1><p>↑ 8.5% tháng này</p></div>
+                        <div class="bigCard" data-aos="fade-up" data-aos-delay="300"><h2>Video</h2><h1>532</h1><p>+ 3 video mới</p></div>
+                    </div>
+                `,
+        videos: `
+                    <h1 data-aos="fade-up">🎬 Video mới nhất</h1>
+                    <div id="videoList">
+                        <a href="#" class="videoCard" data-aos="fade-up" data-aos-delay="100">
+                            <div class="thumb-wrapper"><img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Video 1" loading="lazy"/></div>
+                            <div class="play-btn"><i class="fas fa-play"></i></div>
+                            <h3>Học lập trình web trong 1 giờ</h3>
+                            <p>10.2K lượt xem • 2 ngày trước</p>
+                        </a>
+                        <a href="#" class="videoCard" data-aos="fade-up" data-aos-delay="200">
+                            <div class="thumb-wrapper"><img src="https://img.youtube.com/vi/3JZ_D3ELwOQ/maxresdefault.jpg" alt="Video 2" loading="lazy"/></div>
+                            <div class="play-btn"><i class="fas fa-play"></i></div>
+                            <h3>Thiết kế UI/UX với Figma</h3>
+                            <p>8.7K lượt xem • 5 ngày trước</p>
+                        </a>
+                        <a href="#" class="videoCard" data-aos="fade-up" data-aos-delay="300">
+                            <div class="thumb-wrapper"><img src="https://img.youtube.com/vi/jNQXAC9IVRw/maxresdefault.jpg" alt="Video 3" loading="lazy"/></div>
+                            <div class="play-btn"><i class="fas fa-play"></i></div>
+                            <h3>Phỏng vấn lập trình viên</h3>
+                            <p>5.4K lượt xem • 1 tuần trước</p>
+                        </a>
+                    </div>
+                `,
+        about: `
+                    <h1 data-aos="fade-up">👤 Giới thiệu</h1>
+                    <div style="max-width: 600px; margin: 30px auto; background: var(--card-bg); padding: 40px; border-radius: 16px; border: 1px solid var(--border-color);" data-aos="fade-up" data-aos-delay="100">
+                        <img src="https://i.pravatar.cc/200" alt="Avatar" style="width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--neon-cyan); margin-bottom: 20px; box-shadow: 0 0 30px rgba(0,255,255,0.2);"/>
+                        <h2 style="color: var(--neon-cyan); margin-bottom: 10px;">Nguyễn Văn A</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 15px;">Developer & Content Creator</p>
+                        <p style="color: var(--text-secondary); line-height: 1.8;">Xin chào! Tôi là một lập trình viên đam mê sáng tạo nội dung. Kênh của tôi chia sẻ kiến thức về lập trình, thiết kế và công nghệ. Hãy cùng tôi khám phá thế giới công nghệ nhé!</p>
+                        <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px; font-size: 28px;">
+                            <a href="#" style="color: var(--neon-cyan); transition: 0.3s;" onmouseover="this.style.color='var(--neon-magenta)'" onmouseout="this.style.color='var(--neon-cyan)'"><i class="fab fa-github"></i></a>
+                            <a href="#" style="color: var(--neon-magenta); transition: 0.3s;" onmouseover="this.style.color='var(--neon-cyan)'" onmouseout="this.style.color='var(--neon-magenta)'"><i class="fab fa-twitter"></i></a>
+                            <a href="#" style="color: #ff0040; transition: 0.3s;" onmouseover="this.style.color='var(--neon-cyan)'" onmouseout="this.style.color='#ff0040'"><i class="fab fa-youtube"></i></a>
+                            <a href="#" style="color: #4267B2; transition: 0.3s;" onmouseover="this.style.color='var(--neon-magenta)'" onmouseout="this.style.color='#4267B2'"><i class="fab fa-facebook"></i></a>
+                        </div>
+                    </div>
+                `
+    };
+
+    // Navigation links
+    document.querySelectorAll('#sidebar a[data-page]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const page = this.dataset.page;
+            navigateTo(page);
+        });
+    });
+
+    function navigateTo(page) {
+        const content = document.getElementById('mainContent');
+
+        // Fade out
+        content.style.opacity = '0';
+        content.style.transform = 'translateY(20px)';
+
+        setTimeout(() => {
+            // Update content
+            content.innerHTML = pages[page] || pages.home;
+
+            // Reset scroll position
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Re-init AOS
+            AOS.refresh();
+
+            // Re-apply mouse tracking
+            document.querySelectorAll('.card, .ytBtn, .bigCard, .videoCard').forEach(el => {
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    el.style.setProperty('--mouse-x', x + '%');
+                    el.style.setProperty('--mouse-y', y + '%');
+                });
+            });
+
+            // Fade in
+            content.style.opacity = '1';
+            content.style.transform = 'translateY(0)';
+        }, 300);
+
+        // Update active link
+        document.querySelectorAll('#sidebar a[data-page]').forEach(a => {
+            a.style.color = a.dataset.page === page ? 'var(--neon-cyan)' : 'var(--text-secondary)';
+        });
+    }
+
+    // ============================================
+    // 9. KEYBOARD SHORTCUTS
+    // ============================================
+    document.addEventListener('keydown', (e) => {
+        // Ctrl + Shift + T = Toggle theme
+        if (e.ctrlKey && e.shiftKey && e.key === 'T') {
+            e.preventDefault();
+            toggleTheme();
+        }
+        // Escape = Close sidebar if open
+        if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+            toggleSidebar();
+        }
+    });
+
+    // ============================================
+    // 10. CONSOLE WELCOME
+    // ============================================
+    console.log('%c✦ NEON DASHBOARD ✦', 'font-size:24px; font-weight:bold; color:#00ffff; text-shadow: 0 0 20px #00ffff;');
+    console.log('%c⚡ Dark/Light mode | Skeleton loading | Back to top | Progress bar', 'font-size:14px; color:#ff00ff;');
+
+    console.log('🚀 Shortcuts:');
+    console.log('  • Ctrl + Shift + T → Toggle theme');
+    console.log('  • Escape → Close sidebar');
+</script>
+</body>
+</html>
