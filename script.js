@@ -122,8 +122,8 @@ const observeCounters = () => {
 // Đợi dữ liệu load xong mới kích hoạt counter
 setTimeout(observeCounters, 2000);
 
-// ===== 3. POPUP MỞ/ĐÓNG =====
-// Tạo popup container
+// ===== 3. POPUP (CHỈ DÙNG KHI CẦN) =====
+// Tạo popup container (ẩn, chỉ hiện khi gọi)
 const popupHTML = `
 <div id="popupOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px); z-index:2000; justify-content:center; align-items:center; animation:fadeIn 0.3s ease;">
     <div id="popupContent" style="background:rgba(10,10,10,0.95); backdrop-filter:blur(20px); padding:40px; border-radius:16px; max-width:500px; width:90%; border:2px solid #00ffff; box-shadow:0 0 60px rgba(0,255,255,0.3); position:relative; animation:popIn 0.4s cubic-bezier(0.22,1,0.36,1);">
@@ -139,7 +139,7 @@ const popupOverlay = document.getElementById('popupOverlay');
 const popupClose = document.getElementById('popupClose');
 const popupMessage = document.getElementById('popupMessage');
 
-// Hàm mở popup
+// Hàm mở popup (có thể gọi khi cần)
 window.openPopup = (message) => {
     if (popupMessage) popupMessage.textContent = message || 'Chào mừng bạn đến với trang web!';
     if (popupOverlay) {
@@ -184,10 +184,7 @@ if (popupOverlay) popupOverlay.onclick = (e) => {
     if (e.target === popupOverlay) closePopup();
 };
 
-// Mở popup tự động sau 3 giây
-setTimeout(() => {
-    openPopup('Chào mừng bạn đến với kênh YouTube của tôi! 🎬');
-}, 3000);
+// ❌ ĐÃ XÓA: KHÔNG CÒN POPUP TỰ ĐỘNG
 
 // ===== 4. DARK MODE CÓ HIỆU ỨNG =====
 // Thêm nút Dark Mode
@@ -479,4 +476,5 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 console.log('🚀 Website đã load thành công!');
-console.log('✨ Các tính năng: Scroll Reveal, Counter, Popup, Dark Mode, Typing, Particles');
+console.log('✨ Các tính năng: Scroll Reveal, Counter, Popup (ẩn), Dark Mode, Typing, Particles');
+console.log('💡 Để mở popup: window.openPopup("Nội dung")');
